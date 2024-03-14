@@ -22,5 +22,25 @@ var baseLayers = {
     "Mapbox": mapbox
 };
 
+// Sự kiện thay đổi cho input file
+document.getElementById('fileInput').addEventListener('change', function (e) {
+    var file = e.target.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var kmlData = e.target.result;
+            // Thêm tệp KML vào bản đồ
+            L.KML.parse(kmlData).addTo(mymap);
+        };
+        reader.readAsText(file);
+    }
+});
+
+// Sự kiện click cho nút thêm KML
+document.getElementById('addKMLButton').addEventListener('click', function () {
+    // Mở input file khi nút được click
+    document.getElementById('fileInput').click();
+});
+
 // Thêm control layers vào bản đồ
 L.control.layers(baseLayers).addTo(mymap);
