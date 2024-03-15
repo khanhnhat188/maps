@@ -23,6 +23,13 @@ mymap.on('click', function (e) {
     marker.setLatLng(e.latlng);
 });
 
+//add marker to mouse
+var marker = L.marker([16.4533864, 107.5359133]).addTo(mymap);
+mymap.on('click', function (e) {
+    marker.setLatLng(e.latlng);
+});
+
+
 var googlemap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
