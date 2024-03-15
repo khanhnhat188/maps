@@ -1,27 +1,46 @@
 // Tạo bản đồ và đặt vị trí trung tâm
-var mymap = L.map('map').setView([10.0348833, 105.7516965], 12);
-
-// Thêm tile layer từ OpenStreetMap
+var mymap = L.map('map').setView([16.2740138, 106.8927121], 5.4);
 var oms = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
 
-// Thêm tile layer từ Mapbox
+var googlemap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+    maxZoom: 20,
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+}).addTo(mymap);
+
+var marker = L.marker([21.0227346, 105.7957638]).addTo(mymap);
+marker.bindPopup("Hà Nội").openPopup();
+
+var popup = L.popup()
+    .setLatLng([10.0341844, 105.7163704,])
+    .setContent("Xin chào Cần Thơ")
+    .openOn(mymap);
+
+var icon = L.icon({
+    iconUrl: 'https://lh5.googleusercontent.com/p/AF1QipPaoto4XQu388tFVAcE2ywUcjoUGxELwyj4DU1F=w215-h280-p-k-no',
+    iconSize: [30, 30]
+});
+var marker = L.marker([16.4533864, 107.5359133], { icon: icon }).addTo(mymap);
+
 var mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    id: 'mapbox://styles/khanhnhat188/cltr81x2800d901pjavlg7uer', // ID của style Mapbox bạn muốn sử dụng
+    id: 'khanhnhat188/cltr81x2800d901pjavlg7uer',
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'pk.eyJ1Ijoia2hhbmhuaGF0MTg4IiwiYSI6ImNrcjNqMWxyNzIwNG0yb3F1NjNhcGhheDEifQ.fhWAK0Zr94gpqbU8ySZNmA'
 }).addTo(mymap);
 
-// Thêm control layers để chuyển đổi giữa các lớp tile
+
 var baseLayers = {
     "OpenStreetMap": oms,
-    "Mapbox": mapbox
+    "Giao Thông Cần Thơ": mapbox,
+    "Google Map": googlemap,
 };
 
+var controlLayers = L.control.layers(baseLayers).addTo(mymap);
 
-// Thêm control layers vào bản đồ
-L.control.layers(baseLayers).addTo(mymap);
+
+
+
